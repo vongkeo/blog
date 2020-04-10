@@ -1,0 +1,60 @@
+Table users  {
+  id int [pk, increment] // auto-increment
+  name varchar
+  email varchar
+  password varchar
+  created_at timestamp
+  updated_at timestamp
+  country_code int
+}
+Table blog {
+  id int [pk,increment]
+  title varchar
+  slug varchar
+  image varchar
+  blog text
+  cat_id int 
+  user_id int 
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table category{
+  id int [pk,increment]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table tags {
+  id int [pk,increment]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+table blog_tag{
+  id int [pk,increment]
+  blog_id int 
+  tag_id int
+  created_at timestamp
+  updated_at timestamp
+}
+
+table comment{
+  id int [pk,increment]
+  body text
+  reply_id int
+  blog_id int
+  user_id int
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref: blog.cat_id > category.id
+Ref:blog.user_id > users.id
+Ref:comment.blog_id > blog.id
+Ref:comment.user_id > users.id
+Ref:blog_tag.tag_id > tags.id
+ref:blog_tag.blog_id > blog.id
+Ref:comment.reply_id > comment.id
