@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ResponseController as Res;
 use App\Model\category;
 use Illuminate\Http\Request;
 
@@ -15,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $fetch = category::latest()->get();
-        return Res::success($fetch);
+        $req = category::latest()->get();
+        return $req;
     }
 
     /**
@@ -37,12 +36,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $req = category::create($request->all());
-            return Res::success($req);
-        } catch (\Throwable $th) {
-            return Res::error($th->getMessage());
-        }
+        $req = category::create($request->all());
+        return $req;
     }
 
     /**
@@ -53,7 +48,6 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        return Res::success($category);
     }
 
     /**
@@ -76,12 +70,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        try {
-            $req = $category->update($request->all());
-            return Res::output($req);
-        } catch (\Throwable $th) {
-            return Res::error($th->getMessage());
-        }
+        $req = $category->update($request->all());
+        return $req;
     }
 
     /**
@@ -92,11 +82,7 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        try {
-            $req = $category->delete();
-            return Res::output($req);
-        } catch (\Throwable $th) {
-            return Res::error($th->getMessage());
-        }
+        $req = $category->delete();
+        return $req;
     }
 }
