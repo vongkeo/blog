@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class blog extends Model
 {
+    protected $guarded = [];
 
     public function user()
     {
@@ -23,5 +24,17 @@ class blog extends Model
     public function tag()
     {
         return $this->belongsToMany(blog_tag::class)->withTimestamps();
+    }
+
+    public static function inToArray($request)
+    {
+        return array(
+            "title"  => $request->title,
+            "slug"  => str_slug($request->title),
+            "images"  => $request->images,
+            "body"  => $request->body,
+            "cat_id"  => $request->cat_id,
+            "user_id"  => $request->user_id,
+        );
     }
 }
