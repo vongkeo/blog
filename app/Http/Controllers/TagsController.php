@@ -14,7 +14,8 @@ class TagsController extends Controller
      */
     public function index()
     {
-        //
+        $req = tags::latest()->get();
+        return $req;
     }
 
     /**
@@ -35,7 +36,8 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $req = tags::create($request->all());
+        return $req;
     }
 
     /**
@@ -44,9 +46,9 @@ class TagsController extends Controller
      * @param  \App\Model\tags  $tags
      * @return \Illuminate\Http\Response
      */
-    public function show(tags $tags)
+    public function show($tags)
     {
-        //
+      return tags::where('id',$tags)->get();
     }
 
     /**
@@ -57,7 +59,7 @@ class TagsController extends Controller
      */
     public function edit(tags $tags)
     {
-        //
+        
     }
 
     /**
@@ -67,9 +69,11 @@ class TagsController extends Controller
      * @param  \App\Model\tags  $tags
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tags $tags)
+    public function update(Request $request, $tags)
     {
-        //
+        $req = tags::where('id', $tags)->get()[0];
+        $update = $req->update($request->all());
+        return $update;
     }
 
     /**
@@ -78,8 +82,10 @@ class TagsController extends Controller
      * @param  \App\Model\tags  $tags
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tags $tags)
+    public function destroy($tags)
     {
-        //
+        $req = tags::where('id', $tags)->get()[0];
+        $dele = $req->delete();
+        return $dele;
     }
 }
