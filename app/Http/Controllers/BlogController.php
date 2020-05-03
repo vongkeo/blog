@@ -82,9 +82,23 @@ class BlogController extends Controller
      * @param  \App\Model\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, blog $blog)
+    public function update(Request $request,  $blog)
     {
-        //
+        // check Image 
+        try {
+            // return $blog->images;
+            if ($request->hasFile(('images'))) {
+                return "have image";
+            } else {
+                return "have no image";
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        // if have image delete image 
+        // upload image 
+
+        return $blog;
     }
 
     /**
@@ -105,15 +119,28 @@ class BlogController extends Controller
         $ImagFileName = time() . '.' . $ImageType;
         $saveImage = Image::make($file->path())->resize($size[0], $size[1])->save($dir . '/' . $ImagFileName);
         if ($saveImage) {
-            return "/uploads/" . $path . '/' . $ImagFileName;
+            return "uploads/" . $path . '/' . $ImagFileName;
         } else {
             return $ImagFileName;
         }
     }
+
+    public function updateBlog(Request $request,  $id)
+    {
+        $query = blog::where('id', $id)->get()[0];
+        try {
+            if ($request->hasFile(('images'))) {
+                unlink($query->images);
+                $sendToUpload =  $this->saveImage($request, 'blog', 'images', [600, 400]);
+                $request->images = $sendToUpload;
+                $save = blog::inToArray($request);
+                $isSave = $query->update($save);
+                return $isSave;
+            } else {
+                return "have no image";
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }
-
-
-// [] array 
-// {} object 
-// ""  string 
-// null empty 

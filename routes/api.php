@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('category', 'CategoryController');
 Route::resource('tag', 'TagsController');
 Route::resource('blog', 'BlogController');
+Route::post('updateBlog/{id}', 'BlogController@updateBlog');
