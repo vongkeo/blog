@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function index()
     {
         $req = blog::latest()->get();
-        return $req;
+        return  $req;
     }
 
     /**
@@ -37,17 +37,16 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            if ($request->hasFile('images')) {
-                $isSave =   $this->saveImgFormFile($request, 'blog',  'images', [800, 548]);
-                // store image 
-                $request->images = $isSave;
-                $req = blog::inToArray($request);
 
-                $isSave = blog::create($req);
+        try {
+            if ($request->hasFile(('images'))) {
+                $sendToUpload =  $this->saveImage($request, 'blog', 'images', [600, 400]);
+                $request->images = $sendToUpload;
+                $save = blog::inToArray($request);
+                $isSave = blog::create($save);
                 return $isSave;
             } else {
-                return "Have No image";
+                return "no image";
             }
         } catch (\Throwable $th) {
             throw $th;
@@ -63,7 +62,6 @@ class BlogController extends Controller
     public function show(blog $blog)
     {
         return $blog;
-        //
     }
 
     /**
@@ -99,34 +97,23 @@ class BlogController extends Controller
     {
         //
     }
-
-    public  function saveImgFormFile(Request $request, string $path = 'general/', string $objectName = 'proImage', array $sized = [800, 600])
+    public function saveImage(Request $request, $path, $imageNmae, $size)
     {
-        try {
-            $isSplit = explode(" ", $path);
-            if (count($isSplit) > 1) {
-                $split_out = $isSplit[0] . $isSplit[1];
-            } else {
-                $split_out = $isSplit[0];
-            }
-            $dir = public_path('uploads/' . $split_out);
-            exec("mkdir $dir");
-            exec("chmod -R 775 $dir");
-            $file = $request->file($objectName);
-            $filetype = $file->getClientOriginalExtension(); // getting image extension
-            $filename = time() . '.' . $filetype;
-            // file type is not accepted   
-            if (!in_array($filetype, $this->imgAccepted())) return 'This file are not allow' . $filetype;
-            $isSave = Image::make($file->path())->resize($sized[0], $sized[1])->save($dir . '/' . $filename);
-            if ($isSave)   return 'uploads/' . $split_out . '/' . $filename;
-            return $filename;
-        } catch (\Exception $ex) {
-            throw $ex;
+        $dir = public_path('uploads/' . $path);
+        $file = $request->file($imageNmae);
+        $ImageType = $file->getClientOriginalExtension();
+        $ImagFileName = time() . '.' . $ImageType;
+        $saveImage = Image::make($file->path())->resize($size[0], $size[1])->save($dir . '/' . $ImagFileName);
+        if ($saveImage) {
+            return "/uploads/" . $path . '/' . $ImagFileName;
+        } else {
+            return $ImagFileName;
         }
     }
-
-    public  function imgAccepted()
-    {
-        return ["jpg", "jpeg", "png"];
-    }
 }
+
+
+// [] array 
+// {} object 
+// ""  string 
+// null empty 
