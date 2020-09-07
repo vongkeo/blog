@@ -87,7 +87,7 @@ class AuthController extends Controller
         try {
             $req = User::inToArray($request);
             $isSave = User::create($req);
-           return $this->login($request);
+            return $this->login($request);
         } catch (\Throwable $th) {
             throw $th;
         }
