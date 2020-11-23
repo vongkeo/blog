@@ -1,7 +1,5 @@
 require("./bootstrap");
 window.Vue = require("vue");
-Vue.config.productionTip = false;
-
 import router from "~/routes.js";
 import App from "~/views/App";
 import Default from "~/layouts/default";
@@ -9,8 +7,8 @@ import Default from "~/layouts/default";
 Vue.component("default", Default);
 
 const app = new Vue({
-    el: "#app",
     router,
+    el: "#app",
     render: h => h(App)
 });
 

@@ -37690,7 +37690,7 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("h1", [_vm._v("Hello Devla Media With Vuejs 123123")]),
+      _c("h1", [_vm._v("Homepage")]),
       _vm._v(" "),
       _c("router-link", { attrs: { to: "/about" } }, [_vm._v("about")])
     ],
@@ -52989,8 +52989,8 @@ Vue.config.productionTip = false;
 
 Vue.component("default", _layouts_default__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var app = new Vue({
-  el: "#app",
   router: _routes_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+  el: "#app",
   render: function render(h) {
     return h(_views_App__WEBPACK_IMPORTED_MODULE_1__["default"]);
   }
@@ -53267,9 +53267,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_about__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ~/pages/about */ "./resources/js/pages/about.vue");
 
 
+
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-
-
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
   routes: [{

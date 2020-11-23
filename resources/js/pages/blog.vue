@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>About</h1>
+        <h1>Blog Page</h1>
         <router-link to="/">Home</router-link>
         <div class="row">
             <div class="col col-6">
