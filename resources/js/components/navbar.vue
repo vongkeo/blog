@@ -38,8 +38,12 @@
                         >Get Started</a
                     >
                     <div class="dropdown-menu" aria-labelledby="dropdown09">
-                        <a class="dropdown-item" href="#">Login</a>
-                        <a class="dropdown-item" href="#">Register</a>
+                        <router-link class="dropdown-item" to="/login">
+                            Login</router-link
+                        >
+                        <router-link class="dropdown-item" to="/register">
+                            Register</router-link
+                        >
                     </div>
                 </li>
             </ul>
